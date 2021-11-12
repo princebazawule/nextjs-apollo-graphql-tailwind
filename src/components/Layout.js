@@ -4,8 +4,7 @@ import Header from './Header';
 
 const Layout = ({ children }) => {
     return ( 
-        <div className='container mx-auto'>
-
+        <div className=''>
             <Head>
                 {/* Open Graph / Facebook */}
                 <meta name="og:type" content="website" />
@@ -21,7 +20,7 @@ const Layout = ({ children }) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
             <Header />
-            <div className='min-h-100vh'>
+            <div className='min-h-screen'>
                 { children }
             </div>
             <Footer />

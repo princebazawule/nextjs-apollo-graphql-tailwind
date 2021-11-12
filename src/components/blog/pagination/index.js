@@ -17,7 +17,8 @@ const Pagination = ( {pagesCount, postName} ) => {
 	const paginationLinks = createPaginationLinks( currentPageNo, pagesCount );
 
 	return (
-		<div className="flex justify-center my-8">
+		<div className='bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6'>
+			<nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px mx-auto mt-8" aria-label="Pagination">
 
 			<Previous currentPageNo={currentPageNo} postName={postName}/>
 
@@ -29,20 +30,20 @@ const Pagination = ( {pagesCount, postName} ) => {
 					'number' === typeof pageNo ? (
 						<Link key={`id-${index}`} href={paginationLink}>
 							<a
-								className={cx( 'border border-gray-300 px-3 py-2 transition duration-500 ease-in-out hover:bg-gray-500 hover:text-white', {
-									'is-active bg-gray-500 text-white': pageNo === currentPageNo
+								className={cx( 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium', {
+									'is-active z-10 bg-indigo-50 border-indigo-500 text-indigo-600': pageNo === currentPageNo
 								} )}
 							>
 								{pageNo}
 							</a>
 						</Link>
 					) : (
-					// If its "..."
 						<span key={`id-${index}`} className="px-3 py-2">{pageNo}</span>
 					)
 				);
 			} )}
 			<Next currentPageNo={currentPageNo} pagesCount={pagesCount} postName={postName}/>
+			</nav>
 		</div>
 	);
 };

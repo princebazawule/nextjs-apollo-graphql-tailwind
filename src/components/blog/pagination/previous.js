@@ -17,7 +17,8 @@ const Previous = ( {currentPageNo, postName} ) => {
 	return (
 		<Link href={paginationLink}>
 			<a 
-				className="border border-gray-300 px-3 py-2 mr-4 transition duration-500 ease-in-out hover:bg-gray-500 hover:text-white">
+				className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+			>
 				Previous
 			</a>
 		</Link>

@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import client from '../src/apollo/client'
 import { GET_CONTENT } from '../src/queries/get-content'
-import styles from '../src/styles/Home.module.scss'
 import { sanitize } from '../src/utils/miscellaneous'
 
 export const getStaticProps = async (context) => {
@@ -42,32 +41,39 @@ export default function Home({ data }) {
         <meta name="twitter:title" content="PixlD - We build beautiful websites" />
         <meta name="twitter:description" content="We are a boutique, web design & development firm based in sunny Barbados" />
       </Head>
-      
-      <main className='px-5'>
-        <div className="flex info-center justify-center h-screen">
-      
-          <div className="text-gray-900 p-10">
-            <h1 className='font-bold text-8xl mb-8'>who&apos;s PixlD?</h1>
+
+      <section className="text-gray-700 body-font">
+        <div className="lg:w-1/2 flex flex-col lg:items-center lg:justify-center lg:min-h-screen">
+          <div className="flex flex-col md:items-start md:text-left mb-16 lg:mb-0 items-center text-center mx-4 lg:mx-16">
+            <h1 className="title-font text-3xl sm:text-3xl md:text-5xl lg:text-7xl 2xl:text-8xl mb-8 text-gray-900 font-black">Who&apos;s PixlD?</h1>
+            
             {!info && <p>Loading...</p>}
             {info && ( 
               <>
                 <div 
-                  className={styles.profile}
+                  className="mb-8 leading-relaxed text-lg lg:text-2xl xl:text-2xl 2xl:text-2xl mini-profile"
                   dangerouslySetInnerHTML={{ __html: sanitize(info?.miniProfile)}} ></div>
                 
-                <div className="get-in-touch">
+                <div className="get-in-touch flex justify-center">
                   <Link href="/connect">
                     <a>
-                      <button>get in touch</button>
+                      <button className="inline-flex text-white bg-indigo-500 border-0 py-4 px-8 focus:outline-none hover:bg-indigo-600 rounded text-3xl capitalize">get in touch</button>
                     </a>
                   </Link>
                 </div>
               </>
             )}
           </div>
-        
+
+          <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+            <img
+              className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+              src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80"
+              alt=""
+            />
+          </div>
         </div>
-      </main>
+      </section>
     </>
   )
 }

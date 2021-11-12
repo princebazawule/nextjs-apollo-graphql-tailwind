@@ -7,9 +7,6 @@ import {GET_POST} from '../../src/queries/posts/get-post'
 import {GET_POST_SLUGS} from '../../src/queries/posts/get-posts'
 import { useRouter } from 'next/router';
 
-// import styles from '../../styles/Blog.module.scss'
-
-
 export const getStaticPaths = async () => {
 	const { data } = await client.query( {
 		query: GET_POST_SLUGS
