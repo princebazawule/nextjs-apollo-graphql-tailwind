@@ -1,17 +1,29 @@
 {
+  "name": "nextjs-apollo-graphql-tailwind",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "svg": "svgr -d src/components/icons src/components/icons/svgs",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --browser chrome"
   },
   "dependencies": {
-    "next": "latest",
+    "@apollo/client": "^3.4.16",
+    "@svgr/cli": "^5.5.0",
+    "classnames": "^2.3.1",
+    "dompurify": "^2.3.3",
+    "graphql": "^15.6.1",
+    "next": "12",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "sass": "^1.42.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.6",
+    "cypress": "^8.5.0",
     "postcss": "^8.3.5",
     "tailwindcss": "^2.2.4"
   }

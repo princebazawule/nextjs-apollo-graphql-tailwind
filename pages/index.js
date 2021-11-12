@@ -1,82 +1,73 @@
 import Head from 'next/head'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import client from '../src/apollo/client'
+import { GET_CONTENT } from '../src/queries/get-content'
+import styles from '../src/styles/Home.module.scss'
+import { sanitize } from '../src/utils/miscellaneous'
 
-export default function Home() {
+export const getStaticProps = async (context) => {
+  const { data, loading, networkStatus } = await client.query({
+    query: GET_CONTENT
+  })
+
+  return {
+    props: {
+      data: {
+        info: data?.info?.edges || []
+      }
+    },
+    revalidate: 1
+  }
+}
+
+export default function Home({ data }) {
+  const router = useRouter
+  const info = data?.info[0]?.node?.footerInfo
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href={`https://pixldinc.com/${router.pathname}`} />
+
+        <title>PixlD - We build beautiful websites</title>
+        <meta name="title" content="PixlD - We build beautiful websites" />
+        <meta name="description" content="We are a boutique, web design & development firm based in sunny Barbados" />
+      
+        {/* Open Graph / Facebook */}
+        <meta name="og:title" content="PixlD - We build beautiful websites" />
+        <meta name="og:description" content="We are a boutique, web design & development firm based in sunny Barbados" />
+
+        {/* Twitter */}
+        <meta name="twitter:title" content="PixlD - We build beautiful websites" />
+        <meta name="twitter:description" content="We are a boutique, web design & development firm based in sunny Barbados" />
       </Head>
-
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
-            pages/index.js
-          </code>
-        </p>
-
-        <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+      
+      <main className='px-5'>
+        <div className="flex info-center justify-center h-screen">
+      
+          <div className="text-gray-900 p-10">
+            <h1 className='font-bold text-8xl mb-8'>who&apos;s PixlD?</h1>
+            {!info && <p>Loading...</p>}
+            {info && ( 
+              <>
+                <div 
+                  className={styles.profile}
+                  dangerouslySetInnerHTML={{ __html: sanitize(info?.miniProfile)}} ></div>
+                
+                <div className="get-in-touch">
+                  <Link href="/connect">
+                    <a>
+                      <button>get in touch</button>
+                    </a>
+                  </Link>
+                </div>
+              </>
+            )}
+          </div>
+        
         </div>
       </main>
-
-      <footer className="flex items-center justify-center w-full h-24 border-t">
-        <a
-          className="flex items-center justify-center"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="h-4 ml-2" />
-        </a>
-      </footer>
-    </div>
+    </>
   )
 }

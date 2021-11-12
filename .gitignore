@@ -1,16 +1,38 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/.pnp
+node_modules
+.pnp
 .pnp.js
+package-lock.json
+yarn.lock
+!/yarn.lock
 
-# testing
-/coverage
+# logs & pids
+*.log
+pids
 
-# next.js
-/.next/
-/out/
+# cypress
+cypress/videos
+cypress/screenshots
+packages/example/cypress
+
+# coverage
+coverage
+.nyc_output
+
+# test output
+test/**/out*
+test/**/next-env.d.ts
+.DS_Store
+/e2e-tests
+test/tmp/**
+
+# build & output
+dist
+.next
+out
+target
 
 # production
 /build
@@ -32,3 +54,4 @@ yarn-error.log*
 
 # vercel
 .vercel
+.now
